@@ -1,0 +1,33 @@
+<% include partials/_header %>
+
+<div class="col-md-7 mx-auto">
+    <% if (usuario.rol == 0) { %>
+        <!-- Si el rol del usuario es 0, muestra el siguiente contenido -->
+        <p>Contenido específico para el rol 0</p>
+    <% } else { %>
+        <!-- Si el rol del usuario no es 0, muestra la tabla con la información del usuario -->
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="mx-auto text-center" colspan="2">Usuario</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>ID</th>
+                    <td><%= usuario._id %></td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td><%= usuario.email %></td>
+                </tr>
+                <tr>
+                    <th>Password</th>
+                    <td><%= usuario.password %></td>
+                </tr>
+            </tbody>
+        </table>
+    <% } %>
+</div>
+
+<% include partials/_footer %>
