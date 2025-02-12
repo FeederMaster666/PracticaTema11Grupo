@@ -1,5 +1,4 @@
 const router = require('express').Router();//importamos el modulo de express para definir las rutas
-
 const passport = require('passport');//importamos el modulo de passport para la autenticacion
 
 //definimos la ruta de inicio

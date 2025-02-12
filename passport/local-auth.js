@@ -1,21 +1,23 @@
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+//local-auth
 
-const usuario = require('../models/usuario');
+//Importacion de módulos
+const passport = require('passport'); //middleware de autenticación
+const LocalStrategy = require('passport-local').Strategy; //permite autenticación con usuario y contraseña.
 
+const usuario = require('../models/usuario'); //modelo usuario
 
-
-
-
+//Estrategia de registro de usuario
 passport.use('local-signup', new LocalStrategy({
-  usuarionameField: 'email',
+  usernameField: 'email', //Es un nombre de configuración propio del modulo passport.js, se debe llamar user y no usuario
   passwordField: 'password',
   passReqToCallback: true
 }, async (req, email, password, done) => {
-  var usuario = new Usuario();
+  var usuario = new usuario();
   usuario = await usuario.findEmail( email)
+  //Si usuario existe da error
   if(usuario) {
     return done(null, false, req.flash('signupMessage', 'The Email is already Taken.'));
+  //Sino existe, crea el nuevo usuario
   } else {
     const newusuario = new Usuario();
     newusuario.email = email;
@@ -27,6 +29,7 @@ passport.use('local-signup', new LocalStrategy({
   }
 }));
 
+//Estrategia de login
 passport.use('local-signin', new LocalStrategy({
   usuarionameField: 'email',
   passwordField: 'password',
