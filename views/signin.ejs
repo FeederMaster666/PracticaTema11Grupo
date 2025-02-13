@@ -1,18 +1,21 @@
-<%- include('partials/_header.ejs') %>
-<div class="col-md-5">
-  <div class="card">
-    <div class="card-body">
-      <form action="/signin" method="POST">
-        <input type="email" name="email" placeholder="Email">
-        <input type="password" name="password" placeholder="Password">
-        <button class="btn btn-primary" type="submit">
+<% include('partials/_header.ejs') %>  <!-- Incluye el encabezado desde un archivo parcial -->
+
+<div class="col-md-5"> <!-- Contenedor con tamaño de columna Bootstrap -->
+  <div class="card"> <!-- Tarjeta para darle un diseño más atractivo -->
+    <div class="card-body"> <!-- Cuerpo de la tarjeta -->
+      <form action="/signin" method="POST"> <!-- Formulario que envía los datos a /signin mediante POST -->
+        <input type="email" name="email" placeholder="Email"> <!-- Campo de entrada para el correo electrónico -->
+        <input type="password" name="password" placeholder="Password"> <!-- Campo de entrada para la contraseña -->
+        <button class="btn btn-primary" type="submit"> <!-- Botón de envío con estilo Bootstrap -->
           SignIn
         </button>
       </form>
     </div>
   </div>
 </div>
-<%if (signinMessage) {%>
-  <p style="color:#FF0000;"><%= signinMessage %></p>
-  <% } %>
-  <%- include('partials/_footer.ejs') %>
+
+<% if (signinMessage) { %> <!-- Si existe un mensaje de error o aviso, lo muestra -->
+  <p style="color:#FF0000;"><%= signinMessage %></p> <!-- Mensaje de error en rojo -->
+<% } %>
+
+<% include('partials/_footer.ejs') %> <!-- Incluye el pie de página desde un archivo parcial -->
