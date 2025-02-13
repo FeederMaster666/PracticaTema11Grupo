@@ -2,24 +2,32 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-const session = require('express-session');
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/usuarios');
 const flash = require('connect-flash');
+const session = require('express-session');
 const passport = require('passport');
+const logger = require('morgan');
+
+
 
 var app = express();
+require('./database');
+require('./passport/local-auth');
 
+
+var tasksRouter = require('./routes/index');
+var usersRouter = require('./routes/usuarios');
 // view engine setup
 app.set('port', process.env.PORT || 3000);
-
-app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
+// middlewares
 app.use(logger('dev'));
-
-app.use(express.urlencoded({extended: false}));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+//app.use(express.static(path.join(__dirname, 'public')));
+app.use("/public", express.static(path.resolve(__dirname + '/public')));
 app.use(session({
   secret: 'mysecretsession',
   resave: false,
@@ -28,20 +36,19 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+// middlewares
+
 
 app.use((req, res, next) => {
   app.locals.signinMessage = req.flash('signinMessage');
   app.locals.signupMessage = req.flash('signupMessage');
-  app.locals.usuario = req.usuario;
+  app.locals.user = req.user;
   next();
 });
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+//routes
+app.use('/', usersRouter);
+app.use('/', tasksRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -9,24 +9,11 @@ const usuarioSchema = new Schema({
     password: {type: String, required: true},
     apellido: {type: String, required: true},
     rol: {
-        type: [String],
-        enum: ['profesor', 'alumno', 'administrador'],
-        required: true
-    },
+        type: String, required: true
+    }
     
 });
 
-// asignar un rol por defecto(esto hay q verlo mejor)
-const roleIds = {
-    profesor: 1,
-    alumno: 2,
-    administrador: 0
-};
-
-//metodo para obtener el id del rol(con esto que tambien hay qye verlo)
-usuarioSchema.methods.getRoleId = function() {
-    return this.rol.map(role => roleIds[role]);
-};
 
 //metodo para validar contraseña
 usuarioSchema.methods.encryptPassword = async password => {
@@ -50,7 +37,7 @@ usuarioSchema.methods.comparePassword = function(password){
 //metodo para insertar un usuario
 usuarioSchema.methods.insert = async function(){
    await this.save()
-    .then(result => console.log(result))
+    .then(result => {return result})
     .catch(error => console.log(error));
 };
 
@@ -88,22 +75,28 @@ usuarioSchema.methods.update = async function(id, usuario){
 usuarioSchema.methods.findByEmail = async function(email){
     const Usuario = mongoose.model("usuario", usuarioSchema);
     return await Usuario.findOne({"email": email})
-    .then(result => console.log(result))
+    .then(result => {return result})
     .catch(error => console.log(error));
 }
     
-//metodo para asignar alumnos a una asignatura
+//findbyid
+usuarioSchema.methods.findById = async function(id){
+    const Usuario = mongoose.model("usuario", usuarioSchema);
+    return await Usuario.findById(id)
+    .then(result => {return result})
+    .catch(error => console.log(error));
+}
+//metodo para asignar alumnos a una asignatura(Solo puede el administrador)
 usuarioSchema.methods.asignarAlumnos = async function(){
+    
    
 };
 
-//metodo para asignar profesores a una asignatura
+//metodo para asignar profesores a una asignatura(Solo puede el administrador)
 usuarioSchema.methods.asignarProfesores = async function(){
    
 };
-/****ESTOS METODOS LOS DEL PROFESOR  *****/
 
-/****ESTOS METODOS LOS DEL ALUMNO  *****/
 
 
 
