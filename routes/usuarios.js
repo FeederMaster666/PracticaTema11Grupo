@@ -1,5 +1,5 @@
+const express = require('express');
 const router = require('express').Router();//importamos el modulo de express para definir las rutas
-
 const passport = require('passport');//importamos el modulo de passport para la autenticacion
 
 //definimos la ruta de inicio
@@ -7,12 +7,16 @@ router.get('/', function(req, res, next) {
   res.send('index');
 });
 
+
+//DESDE LAS VISTAS, SE LLAMAN A ESTOS METODOS (GET,POST) QUE RENDERIZAN NUEVAS VISTAS EN LA PÁGINA WEB
+//Parámetros de los get,post,etc -> req:solicitud del cliente, res:respuesta del servidor, next: para pasar el control a otro middleware
+
 //ruta para la pagina de usuarios
 router.get('/usuarios', function(req, res, next) {
-  if(req.usuario.rol == 0){//si el rol del usuario es 0 entonces puede ver la pagina de usuarios
-    res,render('usuarios');//renderizamos la pagina de usuarios
-  }else{
-    res.redirect('/');//si no es asi lo redirigimos a la pagina de inicio
+  if (req.usuario && req.usuario.rol == 0) { // Verifica que req.usuario exista antes de acceder a rol
+    res.render('usuarios'); // Renderiza la vista de usuarios
+  } else {
+    res.redirect('/'); // Redirige al usuario si no tiene el rol adecuado
   }
 });
 
