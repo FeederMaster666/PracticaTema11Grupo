@@ -35,39 +35,22 @@
                                 <a class="nav-link"
                                     href="/signup">Signup</a><!--Carga el apartado signup (/views/signup)-->
                             </li>
-                        <% } else { %><!--Si es un usuario registrado-->
-                            <% if (usuario.rol=="Administrador" ) { %><!--Si es un administrador-->
+                            <% } else { %><!--Si es un usuario registrado-->
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="/rutaDeGestionDeUsuarios">Gestionar Usuarios</span></a><!--Carga el apartado x-->
+                                    <a class="nav-link" href="/usuarios">
+                                        <%usuario.Email%></span>
+                                    </a><!--Carga el email del usuario-->
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/rutaDeGestionDeAsignaturas">Gestionar Asignaturas</a><!--Carga el apartado y-->
+                                    <a class="nav-link">
+                                        <%usuario.rol>
+                                    </a><!--Carga el apartado y-->
                                 </li>
-                            <% } else if (usuario.rol=="Profesor" ){ %>
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="/rutaDeGestionDeAsignaturas">Gestionar Asignaturas</a><!--Carga el apartado x-->
-                                </li>
-                            <% } else if (usuario.rol=="Alumno" ){ %>
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="/rutaDeGestionDeAsignaturas">Mis Asignaturas</a><!--Carga el apartado x-->
-                                </li>
-                            <% } %>
-                                            <!--<li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Dropdown
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item">
+
+                                <li class="nav-item"><!--Falta por hacer-->
                                     <a class="nav-link" href="/logout">Log out</a>
-                                </li>-->
-                        <% } %>
+                                </li>
+                                <% } %>
                     </ul>
                     <!--<% if (usuario) { %>Se puede reciclar si fuese necesario
                         <form action="/tasks/search" class="d-flex" method="get">
@@ -78,12 +61,6 @@
                 </div>
             </div>
         </nav>
-    </div>
+          
+    </div>
 </body>
-
-
-
-
-
-
- 
