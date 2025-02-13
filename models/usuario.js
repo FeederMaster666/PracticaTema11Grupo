@@ -16,7 +16,7 @@ const usuarioSchema = new Schema({
     
 });
 
-// asignar un rol por defecto(esto hay q verlo mejor)
+// asignar un numero al rol (esto hay q verlo mejor)
 const roleIds = {
     profesor: 1,
     alumno: 2,
@@ -28,14 +28,6 @@ usuarioSchema.methods.getRoleId = function() {
     return this.rol.map(role => roleIds[role]);
 };
 
-//metodo para validar contraseña
-usuarioSchema.methods.encryptPassword = async password => {
-    return bcrypt.hashSync(password,bcrypt.genSaltSync (10));
-};
-//metodo para comparar contraseñas
-usuarioSchema.methods.comparePassword = function(password){
-    return bcrypt.compareSync(password, this.password);
-};
 //metodo para volver a encriptar la contraseña
 usuarioSchema.methods.encryptPassword = (password) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10));

@@ -8,7 +8,7 @@ const usuario = require('../models/usuario'); //modelo usuario
 
 //Estrategia de registro de usuario
 passport.use('local-signup', new LocalStrategy({
-  usernameField: 'email', //Es un nombre de configuración propio del modulo passport.js, se debe llamar user y no usuario
+  usernameField: 'email', //Es un nombre de configuración propio del modulo passport.js, se debe llamar 'usernameField' y no 'usuarionameField'
   passwordField: 'password',
   passReqToCallback: true
 }, async (req, email, password, done) => {
@@ -31,11 +31,11 @@ passport.use('local-signup', new LocalStrategy({
 
 //Estrategia de login
 passport.use('local-signin', new LocalStrategy({
-  usuarionameField: 'email',
+  usernameField: 'email', //Objeto propio de passport. No cambiar 'user' a 'usuario'
   passwordField: 'password',
   passReqToCallback: true
 }, async (req, email, password, done) => {
-  var usuario = new Usuario();
+  var usuario = new usuario();
   usuario = await usuario.findEmail( email);
   if(!usuario) {
     return done(null, false, req.flash('signinMessage', 'No usuario Found'));

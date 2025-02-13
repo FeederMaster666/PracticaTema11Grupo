@@ -1,3 +1,4 @@
+//Import de todo lo que va a usar la app
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -5,17 +6,17 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require('express-session');
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/usuarios');
+const usersRouter = require('./routes/usuarios');
 const flash = require('connect-flash');
 const passport = require('passport');
 
-var app = express();
+const app = express();
 
-// view engine setup
+// view engine setup (Configuración de las vistas)
 app.set('port', process.env.PORT || 3000);
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs'); // Usa EJS como motor de vistas
+app.set('views', path.join(__dirname, 'views')); // Define la carpeta de vistas
 
 app.use(logger('dev'));
 
@@ -41,7 +42,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', usersRouter); //Si ponemos '/usuarios' no funciona, dejamos solo la '/'
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
