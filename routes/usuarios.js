@@ -3,13 +3,13 @@ const passport = require('passport');//importamos el modulo de passport para la 
 
 //definimos la ruta de inicio
 router.get('/', (req, res, next) => {
-  res.send('index');
+  res.render('/');
 });
 
 //ruta para la pagina de usuarios
 router.get('/usuarios', function(req, res, next) {
-  if(req.usuario.rol == 0){//si el rol del usuario es 0 entonces puede ver la pagina de usuarios
-    res.render('usuarios');//renderizamos la pagina de usuarios
+  if(req.usuario.rol == "administrador"){//si el rol del usuario es 0 entonces puede ver la pagina de usuarios
+    res.render('/profile');//renderizamos la pagina de usuarios
   } else {
     res.redirect('/profile');//si no es asi lo redirigimos a la pagina de perfil
   }
