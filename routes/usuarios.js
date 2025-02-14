@@ -1,4 +1,3 @@
-const express = require('express');
 const router = require('express').Router();//importamos el modulo de express para definir las rutas
 const passport = require('passport');//importamos el modulo de passport para la autenticacion
 
@@ -13,10 +12,10 @@ router.get('/', function(req, res, next) {
 
 //ruta para la pagina de usuarios
 router.get('/usuarios', function(req, res, next) {
-  if (req.usuario && req.usuario.rol == 0) { // Verifica que req.usuario exista antes de acceder a rol
+  if (req.usuario.rol == 0) { // Verifica que req.usuario exista antes de acceder a rol
     res.render('usuarios'); // Renderiza la vista de usuarios
   } else {
-    res.redirect('/'); // Redirige al usuario si no tiene el rol adecuado
+    res.redirect('/profile'); // Redirige al usuario si no tiene el rol adecuado
   }
 });
 

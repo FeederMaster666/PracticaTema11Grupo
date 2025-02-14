@@ -4,7 +4,16 @@
 const passport = require('passport'); //middleware de autenticación
 const LocalStrategy = require('passport-local').Strategy; //permite autenticación con usuario y contraseña.
 
-const usuario = require('../models/usuario'); //modelo usuario
+const User = require('../models/usuario'); //modelo usuario
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  const user = await User.findById(id);
+  done(null, user);
+});
 
 //Estrategia de registro de usuario
 passport.use('local-signup', new LocalStrategy({
@@ -12,20 +21,23 @@ passport.use('local-signup', new LocalStrategy({
   passwordField: 'password',
   passReqToCallback: true
 }, async (req, email, password, done) => {
-  var usuario = new usuario();
-  usuario = await usuario.findEmail( email)
+  var user = new User();
+  user = await user.findByEmail( email)
   //Si usuario existe da error
-  if(usuario) {
-    return done(null, false, req.flash('signupMessage', 'The Email is already Taken.'));
+  if(user) {
+    return done(null, false, req.flash('signupMessage', 'El Email ya ha sido asignado.'));
   //Sino existe, crea el nuevo usuario
   } else {
-    const newusuario = new Usuario();
-    newusuario.email = email;
-    newusuario.password = newusuario.encryptPassword(password);
-    await newusuario.insert()
+    const newUser = new Usuario();
+    newUser.email = email;
+    newUser.password = newUser.encryptPassword(password);
+    newUser.rol = req.body.rol;
+    newUser.nombre = req.body.nombre;
+    newUser.apellido = req.body.apellido;
+    await newUser.insert()
     .then(result => console.log(result))
     .catch(error => console.log(error));
-    done(null, newusuario);
+    done(null, newUser);
   }
 }));
 
@@ -35,13 +47,13 @@ passport.use('local-signin', new LocalStrategy({
   passwordField: 'password',
   passReqToCallback: true
 }, async (req, email, password, done) => {
-  var usuario = new usuario();
-  usuario = await usuario.findEmail( email);
-  if(!usuario) {
-    return done(null, false, req.flash('signinMessage', 'No usuario Found'));
+  var user = new User();
+  user = await user.findByEmail( email);
+  if(!user) {
+    return done(null, false, req.flash('signinMessage', 'Usuario no encontrado'));
   }
-  if(!usuario.comparePassword(password)) {
-    return done(null, false, req.flash('signinMessage', 'Incorrect Password'));
+  if(!user.comparePassword(password)) {
+    return done(null, false, req.flash('signinMessage', 'Contraseña incorrecta'));
   }
-  return done(null, usuario);
+  return done(null, user);
 }));

@@ -10,23 +10,10 @@ const usuarioSchema = new Schema({
     apellido: {type: String, required: true},
     rol: {
         type: [String],
-        enum: ['profesor', 'alumno', 'administrador'],
         required: true
     },
     
 });
-
-// asignar un numero al rol (esto hay q verlo mejor)
-const roleIds = {
-    profesor: 1,
-    alumno: 2,
-    administrador: 0
-};
-
-//metodo para obtener el id del rol(con esto que tambien hay qye verlo)
-usuarioSchema.methods.getRoleId = function() {
-    return this.rol.map(role => roleIds[role]);
-};
 
 //metodo para volver a encriptar la contraseña
 usuarioSchema.methods.encryptPassword = (password) => {
@@ -84,6 +71,14 @@ usuarioSchema.methods.findByEmail = async function(email){
     .catch(error => console.log(error));
 }
     
+//findbyid
+usuarioSchema.methods.findById = async function(id){
+    const Usuario = mongoose.model("usuario", usuarioSchema);
+    return await Usuario.findById(id)
+    .then(result => {return result})
+    .catch(error => console.log(error));
+}
+
 //metodo para asignar alumnos a una asignatura
 usuarioSchema.methods.asignarAlumnos = async function(){
    
