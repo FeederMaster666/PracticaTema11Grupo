@@ -8,15 +8,16 @@ const passport = require('passport');
 const logger = require('morgan');
 
 
-
 var app = express();
 require('./database');
 require('./passport/local-auth');
 
-
+//Rutas definidas para poder encontrar los end-points (get,put,post...)
 var tasksRouter = require('./routes/index');
 var usersRouter = require('./routes/usuarios');
-// view engine setup
+var indexRouter = require ('./routes/index');
+
+// Configuración vistas
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -36,9 +37,9 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+
+
 // middlewares
-
-
 app.use((req, res, next) => {
   app.locals.signinMessage = req.flash('signinMessage');
   app.locals.signupMessage = req.flash('signupMessage');
@@ -46,22 +47,28 @@ app.use((req, res, next) => {
   next();
 });
 
-//routes
-app.use('/', usersRouter);
-app.use('/', tasksRouter);
+//routes : 
+app.use('/', usersRouter); //rutas de '/' buscan en ./routes/usuarios
+app.use('/', tasksRouter); //rutas de '/' buscan en ./routes/index
+app.use ('/',indexRouter); // rutas con 'index' buscan en rutes/index
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler
+// Manejador de errores
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
+  // Mostrar error en la consola con detalles
+  console.error("❌ Error en la ruta:", req.method, req.url);
+  console.error("📌 Mensaje:", err.message);
+  console.error("📜 Stack Trace:", err.stack);
+
+  // Set locals, solo proporcionando errores en desarrollo
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
+  // Renderizar la página de error
   res.status(err.status || 500);
   res.render('error');
 });

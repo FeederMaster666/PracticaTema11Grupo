@@ -18,12 +18,15 @@
 
         <!-- NAVIGATION -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Aplicacion CENTRO ESCOLAR</a>
+                <a class="navbar-brand" href="/index">CENTRO ESCOLAR 'Grupo 11'</a> <!--Los href se enlazan con ¿¿vistas??-->
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
                     aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="collapse navbar-collapse" id="navbarScroll">
                     <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                         <% if (!user) { %><!--Si no es un usuario registrado-->
@@ -36,27 +39,33 @@
                                     href="/signup">Signup</a><!--Carga el apartado signup (/views/signup)-->
                             </li>
                         <% } else { %><!--Si es un usuario registrado-->
-                            <% if (user.rol=="Administrador" ) { %><!--Si es un administrador-->
+                            <% if (user.rol=="administrador" ) { %><!--Si es un administrador-->
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="/profile">Gestionar Usuarios</span></a><!--Carga el apartado x-->
+                                    <a class="nav-link" href="/profile"></span> Perfil </a><!--Carga el apartado views/profile-->
                                 </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="/usuario">Usuarios</span></a><!--Carga el apartado views/usuario-->
+                                </li>
+                            
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/profile">Gestionar Asignaturas</a><!--Carga el apartado y-->
+                                    <a class="nav-link" href="/asignatura">Asignaturas</a><!--Carga el apartado views/asignatura-->
                                 </li>
-                            <% } else if (user.rol=="Profesor" ){ %>
+                            <% } else if (user.rol=="profesor" ){ %>
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="/profile">Gestionar Asignaturas</a><!--Carga el apartado x-->
+                                    <a class="nav-link" href="/asignatura">Asignaturas</a><!--Carga el apartado views/asignatura-->
                                 </li>
-                            <% } else if (user.rol=="Alumno" ){ %>
+                            <% } else if (user.rol=="alumno" ){ %>
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="/profile">Mis Asignaturas</a><!--Carga el apartado x-->
+                                    <a class="nav-link" href="/asignatura">Asignaturas</a><!--Carga el apartado views/asignatura-->
                                 </li>
                             <% } %>
-                                            <!--<li class="nav-item dropdown">
+                                    <!--Este bloque de aquí no se muy bien que cojones es-->
+                                    <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Dropdown
                                     </a>
+
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="#">Action</a>
                                         <a class="dropdown-item" href="#">Another action</a>
@@ -66,9 +75,12 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/logout">Log out</a>
-                                </li>-->
+                                </li>
+
                         <% } %>
                     </ul>
+
+                    <!--Barra de búsqueda-->
                     <% if (user) { %><!--Se puede reciclar si fuese necesario-->
                         <form action="/tasks/search" class="d-flex" method="get">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -80,6 +92,8 @@
         </nav>
     </div>
 </body>
+
+
 
 
 

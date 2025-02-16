@@ -1,8 +1,29 @@
-body {
+/*body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}*/
+
+/*a {
+  color: #00B7FF;
+}*/
+
+div.indexStyle{
+  display: flex;
+  justify-content: center;  /* Centrado horizontal */
+  align-items: top;      /* Centrado vertical */
+  /*height: 40vh;            /* Ocupa 'x' porcentaje de altura de la pantalla */
+  text-align: center;       /* Asegura que el texto esté centrado */
 }
 
-a {
-  color: #00B7FF;
+section.indexSection{
+  border: 2px solid black;  /* Borde negro */
+    padding: 20px;            /* Espaciado interno */
+    background-color: white;  /* Fondo blanco (opcional) */
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); /* Sombra para mejorar el diseño */
+}
+.card{
+  display: flex;
+  justify-content: center;  /* Centrado horizontal */
+  align-items: top;      /* Centrado vertical */
+  text-align: center;       /* Asegura que el texto esté centrado */
 }
