@@ -3,7 +3,7 @@ const passport = require('passport');//importamos el modulo de passport para la 
 
 //definimos la ruta de inicio
 router.get('/', (req, res, next) => {
-  res.render('/');
+  res.render('index');
 });
 
 //ruta para la pagina de usuarios

@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Página Bonita</title>
+    <title>Aula Virtual</title>
     <link rel="stylesheet" href="/styles/main.css">
 </head>
 <body>
-    <%- include('partials/header.ejs') %>
+    <%- include('partials/_header.ejs') %>
 
-    <main>
-        <section>
-            <h1>Bienvenidos a Mi Página</h1>
-            <p>Esta es una página de ejemplo con un diseño sencillo pero bonito.</p>
-        </section>
-    </main>
+    <div class="container">
+        <div class="card">
+            <h1>Bienvenido al Aula Virtual</h1>
+            <p>
+                ¡Bienvenido a tu espacio de aprendizaje en línea! Aquí podrás acceder 
+                a todos los recursos educativos que necesitas para avanzar en tus estudios.
+                Ya seas estudiante o profesor, este aula virtual es tu punto de encuentro 
+                para acceder a asignaturas, materiales, tareas y mucho más.
+            </p>
+        </div>
+    </div>
 
-    <%- include('partials/footer.ejs') %>
+    <%- include('partials/_footer.ejs') %>
 </body>
 </html>
