@@ -3,13 +3,13 @@ const passport = require('passport');//importamos el modulo de passport para la 
 
 //definimos la ruta de inicio
 router.get('/', (req, res, next) => {
-  res.render('/index');
+  res.render('index');
 });
 
 //ruta para la pagina de usuarios
 router.get('/usuarios', function(req, res, next) {
   if(req.usuario.rol == "administrador"){//si el rol del usuario es 0 entonces puede ver la pagina de usuarios
-    res.render('/profile');//renderizamos la pagina de usuarios
+    res.render('profile');//renderizamos la pagina de usuarios
   } else {
     res.redirect('/profile');//si no es asi lo redirigimos a la pagina de perfil
   }
@@ -54,6 +54,8 @@ router.get('/logout', function(req, res, next) {
     res.redirect('/');
   });
 });
+
+//
 
 //funcion para verificar si el usuario esta autenticado
 function isAuthenticated(req, res, next){

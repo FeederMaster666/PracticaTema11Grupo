@@ -28,6 +28,28 @@
 
     <!-- LISTA DE 'TIPO DE DATOS A MOSTRAR' -->
     <div class="col-md-7">
+
+      <div class="col-md-5">
+        <div class="card">
+          <div class="card-body">
+            <form action="/asignaturas/add" method="post">
+              <div class="form-group">
+                <input class="form-control" type="text" name="title" placeholder="Title">
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" name="description" cols="80"
+                  placeholder="Add a Description"
+                  ></textarea>
+              </div>
+              <button class="btn btn-primary" type="submit">
+                Add
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+  
+
       <table class="table table-bordered table-hover">
         <thead>
           <tr>

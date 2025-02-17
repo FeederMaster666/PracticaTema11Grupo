@@ -13,7 +13,7 @@ require('./database');
 require('./passport/local-auth');
 
 //Rutas definidas para poder encontrar los end-points (get,put,post...)
-var tasksRouter = require('./routes/index');
+var tasksRouter = require('./routes/tasks');
 var usersRouter = require('./routes/usuarios');
 var indexRouter = require ('./routes/index');
 
