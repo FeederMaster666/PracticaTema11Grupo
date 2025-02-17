@@ -14,8 +14,9 @@ require('./database');
 require('./passport/local-auth');
 
 
-var tasksRouter = require('./routes/index');
+var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/usuarios');
+var taskRouter = require('./routes/tasks');
 // view engine setup
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
@@ -47,8 +48,9 @@ app.use((req, res, next) => {
 });
 
 //routes
+app.use('/', indexRouter);
 app.use('/', usersRouter);
-app.use('/', tasksRouter);
+app.use('/', taskRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

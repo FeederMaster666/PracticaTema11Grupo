@@ -1,7 +1,7 @@
 <%- include('partials/_header.ejs') %>
 
 <div class="col-md-7 mx-auto">
-    <% if (user.rol == 0) { %>
+    <% if (user.rol == administrador) { %>
         <!-- Si el rol del usuario es 0, muestra el siguiente contenido -->
         <p>Contenido específico para el rol 0</p>
     <% } else { %>
@@ -20,7 +20,7 @@
                 <tr>
                   <th>Email</th>
                   <td><%= user.email%></td>
-                </tr>          
+                </tr>
                 <tr>
                   <th>Password</th>
                   <td><%= user.password%></td>

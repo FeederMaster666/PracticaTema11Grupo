@@ -1,18 +1,19 @@
 const router = require('express').Router();//importamos el modulo de express para definir las rutas
 const passport = require('passport');//importamos el modulo de passport para la autenticacion
+const Usuario = require('../models/usuario');//importamos el modelo de usuario
+
 
 //definimos la ruta de inicio
 router.get('/', (req, res, next) => {
-  res.render('/');
+  res.render('index');
 });
 
 //ruta para la pagina de usuarios
-router.get('/usuarios', function(req, res, next) {
-  if(req.usuario.rol == "administrador"){//si el rol del usuario es 0 entonces puede ver la pagina de usuarios
-    res.render('/profile');//renderizamos la pagina de usuarios
-  } else {
-    res.redirect('/profile');//si no es asi lo redirigimos a la pagina de perfil
-  }
+router.get('/usuarios',isAuthenticated, async function(req, res, next) {
+  const usuario = new Usuario();
+  const usuarios = await usuario.findAll();
+  res.render('usuarios', {usuarios});
+
 });
 
 //ruta para mostrar el (SIGNUP)
@@ -45,6 +46,38 @@ router.post('/signin', passport.authenticate('local-signin', {//utilizamos el pa
 //ruta para mostrar el perfil del admin
 router.get('/profile', isAuthenticated, function(req, res, next) {
   res.render('profile');//renderizamos la pagina de profile
+});
+
+
+
+//para editar usuarios por id
+router.get('/usuarios/edit/:id', isAuthenticated, async function (req, res, next) {
+  var usuario = new Usuario();
+  usaurio = await usuario.findById(req.params.id);
+  res.render('edit', {usuario});
+});
+
+router.post('/usuarios/edit/:id', isAuthenticated,async function(req, res, next) {
+  var usuario = new Usuario();
+  usuario.nombre = req.body.nombre;
+  await usuario.updateById(req.params.id);
+  res.redirect('/usuarios');
+});
+
+
+//para eliminar usuarios por id
+router.get('/usuarios/delete/:id', isAuthenticated, async function(req, res, next) {
+  const usuario = new Usuario();
+  let {id} = req.params;
+  await usuario.delete(id);
+  res.redirect('/usuarios');
+});
+
+router.post('/usuarios/delete/:id', isAuthenticated, async function(req, res, next) { 
+  const usuario = new Usuario();
+  let {id} = req.params;
+  await usuario.delete(id);
+  res.redirect('/usuarios');
 });
 
 //ruta para cerrar sesion

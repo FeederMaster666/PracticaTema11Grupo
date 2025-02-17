@@ -86,16 +86,12 @@ usuarioSchema.methods.findById = async function(id){
     .then(result => {return result})
     .catch(error => console.log(error));
 }
-//metodo para asignar alumnos a una asignatura(Solo puede el administrador)
-usuarioSchema.methods.asignarAlumnos = async function(){
-    
-   
-};
 
-//metodo para asignar profesores a una asignatura(Solo puede el administrador)
-usuarioSchema.methods.asignarProfesores = async function(){
-   
-};
+//findall
+usuarioSchema.methods.findAll = async function(){
+    return await mongoose.model("usuario", usuarioSchema)
+    .find({});
+}
 
 
 

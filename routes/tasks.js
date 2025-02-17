@@ -2,10 +2,9 @@ const express = require('express');
 const router = express.Router();
 const Task = require('../models/task');
 
-
 router.get('/tasks',isAuthenticated, async (req, res) => {
   const task = new Task();
-  const tasks = await task.findAll(req.usuario._id);
+  const tasks = await task.findAll(req.user._id);
   res.render('tasks', {
     tasks
   });
@@ -13,7 +12,7 @@ router.get('/tasks',isAuthenticated, async (req, res) => {
 
 router.post('/tasks/add', isAuthenticated,async (req, res, next) => {
   const task = new Task(req.body);
-  task.usuario=req.usuario._id;
+  task.user=req.user._id;
   await task.insert();
   res.redirect('/tasks');
 });
@@ -50,7 +49,7 @@ router.get('/tasks/delete/:id', isAuthenticated,async (req, res, next) => {
 router.get('/tasks/search',isAuthenticated, async (req, res, next) => {
   const task = new Task();
   let search = req.query.search;
-  const tasks = await task.findSearch(search, req.usuario._id);
+  const tasks = await task.findSearch(search, req.user._id);
   res.render('tasks', {
     tasks
   });
