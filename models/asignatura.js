@@ -1,6 +1,6 @@
 //Librería Mongo y schema tipo Mongo
 const mongoose = require('mongoose');
-const {Schema} = mongoose.Schema;
+const {Schema} = mongoose
 
 //Schema de Asignatua
 const asignaturaSchema = new Schema ({
@@ -24,7 +24,7 @@ const asignaturaSchema = new Schema ({
 //Métodos de asignatura
 
 //Encontrar todas las asignaturas de un usuario
-asignaturaSchema.methods.findAllFromusuario= async function (usuario) {
+asignaturaSchema.methods.findAllFromUsuario= async function (usuario) {
     const asignatura = mongoose.model("asignatura", asignaturaSchema);
     return await asignatura.find({ $or: [{ alumnos: usuario }, { profesores: usuario }]}) 
     .then(result => {return result})
@@ -57,7 +57,7 @@ asignaturaSchema.methods.findAllFromusuario= async function (usuario) {
   //Encontrar asignatura por Id
   asignaturaSchema.methods.findById= async function (id) {
     const Asig = mongoose.model("asignatura", asignaturaSchema);
-    return await Task.findById(id)
+    return await Asig.findById(id)
     .then(result => {return result})
     .catch(error => console.log(error));
   };

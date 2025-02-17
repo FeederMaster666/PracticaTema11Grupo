@@ -18,7 +18,7 @@
         <!-- NAVIGATION -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Aplicacion CENTRO ESCOLAR</a>
+                <a class="navbar-brand" href="#">Aula Virtual</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
                     aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -34,48 +34,35 @@
                             </li>
                             
                         <% } else { %><!--Si es un usuario registrado-->
-                            <% if (user.rol=="Administrador" ) { %><!--Si es un administrador-->
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="/profile">Perfil</span></a><!--Carga el apartado profile-->
-                                </li>
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="/asignaturas">Asignaturas</a><!--Carga el apartado asignaturas (en views)-->
-                                </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="/profile">Perfil</span></a><!--Carga el apartado profile-->
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="/asignaturas">Asignaturas</a><!--Carga el apartado asignaturas (en views)-->
+                            </li>
+
+                            <% if (user.rol=="administrador" ) { %><!--Si es un administrador-->
                                 <li class="nav-item active">
                                     <a class="nav-link" href="/usuarios">Usuarios</a><!--Carga el apartado usuarios (en views)-->
                                 </li>
                                 
-                            <% } else if (user.rol=="Profesor" ){ %>
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="/profile">Perfil</a><!--Carga el apartado profile-->
-                                </li>
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="/asignaturas">Asignaturas</a><!--Carga el apartado asignaturas (en views)-->
-                                </li>
-
-                            <% } else if (user.rol=="Alumno" ){ %>
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="/profile">Perfil</a><!--Carga el apartado profile-->
-                                </li>
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="/asignaturas">Asignaturas</a><!--Carga el apartado asignaturas (en views)-->
-                                </li>
                             <% } %>
-                                <!--<li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Dropdown
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </li>-->
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/logout">Log out</a>
-                                </li>
+                                    
+                            <!--<li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Dropdown
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </li>-->
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout">Log out</a>
+                            </li>
                         <% } %>
                     </ul>
                     <% if (user) { %><!--Se puede reciclar si fuese necesario-->
