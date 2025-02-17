@@ -1,19 +1,13 @@
 const router = require('express').Router();//importamos el modulo de express para definir las rutas
 const passport = require('passport');//importamos el modulo de passport para la autenticacion
+const Usuario = require('../models/usuario');
+
 
 //definimos la ruta de inicio
 router.get('/', (req, res, next) => {
   res.render('index');
 });
 
-//ruta para la pagina de usuarios
-router.get('/usuarios', function(req, res, next) {
-  if(req.usuario.rol == "administrador"){//si el rol del usuario es 0 entonces puede ver la pagina de usuarios
-    res.render('/profile');//renderizamos la pagina de usuarios
-  } else {
-    res.redirect('/profile');//si no es asi lo redirigimos a la pagina de perfil
-  }
-});
 
 //ruta para mostrar el (SIGNUP)
 router.get('/signup', function(req, res, next) {
@@ -54,6 +48,23 @@ router.get('/logout', function(req, res, next) {
     res.redirect('/');
   });
 });
+
+
+//Ruta para ver usuarios
+router.get('/usuarios', isAuthenticated, async (req, res, next) =>{
+  const usuario = new Usuario(); // Instancia correcta del modelo
+  const usuarios = await usuario.findAll(); // Llamar al método 
+  res.render('usuarios', { usuarios });
+});
+
+//Ruta para eliminar un usuario por su id
+router.get('/usuarios/delete/:id', isAuthenticated, async (req, res, next) =>{
+  const usuario = new Usuario();
+  let {id} = req.params;
+  await Usuario.delete(id);
+  res.redirect('/usuarios');
+});
+
 
 //funcion para verificar si el usuario esta autenticado
 function isAuthenticated(req, res, next){

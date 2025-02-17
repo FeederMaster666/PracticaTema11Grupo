@@ -15,8 +15,10 @@ require('./passport/local-auth');
 
 
 var indexRouter = require('./routes/index');
-var asignaturasRouter = require('./routes/asignatura');
 var usersRouter = require('./routes/usuarios');
+var asignaturasRouter = require('./routes/asignaturas');
+
+
 // view engine setup
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));

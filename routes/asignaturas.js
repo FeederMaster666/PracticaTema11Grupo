@@ -9,10 +9,11 @@ router.get('/asignaturas',isAuthenticated, async (req, res) => {
   //res.render('asignaturas', {
     //tasks: asignaturas
   //});
-  res.render('asignaturas'); //comprobar primero que se ve 
+  res.render('asignaturas'); //comprobar primero que se ve la vista
 });
 
 //Añadir métodos después
+
 
 
 //middleware de autenticacion

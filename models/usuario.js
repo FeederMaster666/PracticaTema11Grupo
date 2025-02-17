@@ -11,7 +11,6 @@ const usuarioSchema = new Schema({
     rol: {
         type: String, required: true
     }
-    
 });
 
 
@@ -36,7 +35,7 @@ usuarioSchema.methods.comparePassword = function(password){
 /****ESTOS METODOS SON LOS QUE PUEDE HACER EL ADMINISTRADOR****/
 //metodo para insertar un usuario
 usuarioSchema.methods.insert = async function(){
-   await this.save()
+   return this.save()
     .then(result => {return result})
     .catch(error => console.log(error));
 };
@@ -50,8 +49,8 @@ usuarioSchema.methods.insertAsignatura = async function(){
 
 //metodo para eliminar un usuario
 usuarioSchema.methods.delete = async function(id){
-  const Usuario = mongoose.model("usuario", usuarioSchema);
-    await this.deleteOne({_id:id})
+    const Usuario = mongoose.model("usuario", usuarioSchema);
+    await Usuario.deleteOne({_id:id})
     .then(result => console.log(result))
     .catch(error => console.log(error));
 };
@@ -86,6 +85,13 @@ usuarioSchema.methods.findById = async function(id){
     .then(result => {return result})
     .catch(error => console.log(error));
 }
+
+//findAll
+usuarioSchema.methods.findAll= async function (usuario) {
+    return await mongoose.model("usuario", usuarioSchema)
+    .find({});
+};
+
 //metodo para asignar alumnos a una asignatura(Solo puede el administrador)
 usuarioSchema.methods.asignarAlumnos = async function(){
     
