@@ -51,13 +51,13 @@ router.get('/profile', isAuthenticated, function(req, res, next) {
 
 
 //para editar usuarios por id
-router.get('/usuarios/edit/:id', isAuthenticated, async function (req, res, next) {
+router.get('/usuarios/editUsuario/:id', isAuthenticated, async function (req, res, next) {
   var usuario = new Usuario();
   usaurio = await usuario.findById(req.params.id);
   res.render('edit', {usuario});
 });
 
-router.post('/usuarios/edit/:id', isAuthenticated,async function(req, res, next) {
+router.post('/usuarios/editUsuario/:id', isAuthenticated,async function(req, res, next) {
   var usuario = new Usuario();
   usuario.nombre = req.body.nombre;
   await usuario.updateById(req.params.id);
