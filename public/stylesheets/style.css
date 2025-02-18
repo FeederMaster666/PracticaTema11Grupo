@@ -8,13 +8,13 @@
 .card {
   display: flex;
   flex-direction: column; 
-  justify-content: center; 
-  align-items: center; 
+  justify-content: center; /* vertical*/
+  align-items: flex-start;  /*Horizontal en el flex*/
   background-color: white;
   border-radius: 10px;
   padding: 20px;
   text-align: center;
-  width: 50%; /* Ancho del 50% */
+  width: 60%; /* Ancho del 50% */
   max-width: 400px; /* Ancho máximo para pantallas grandes */
   margin: auto; /* Centra la tarjeta */
   

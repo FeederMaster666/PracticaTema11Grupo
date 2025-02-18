@@ -26,9 +26,15 @@ const asignaturaSchema = new Schema ({
 //Encontrar todas las asignaturas de un usuario
 asignaturaSchema.methods.findAllFromUsuario= async function (usuario) {
     const asignatura = mongoose.model("asignatura", asignaturaSchema);
-    return await asignatura.find({ $or: [{ alumnos: usuario }, { profesores: usuario }]}) 
-    .then(result => {return result})
-    .catch(error => console.log(error));
+    if (usuario.rol ==="administrador"){
+      return await asignatura.find()
+      .then(result => {return result})
+      .catch(error => console.log(error));
+    }else{
+      return await asignatura.find({ $or: [{ alumnos: usuario._id }, { profesores: usuario._id }]}) 
+      .then(result => {return result})
+      .catch(error => console.log(error));
+    }
   };
   
   //Insertar asignatura

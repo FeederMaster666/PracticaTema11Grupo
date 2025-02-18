@@ -22,6 +22,43 @@ router.post('/signup', passport.authenticate('local-signup', {//utilizamos el pa
 }));
 
 
+// Para añadir usuarios sin usar el signup
+router.post('/usuario/add', async (req, res) => {
+  const usuario= new Usuario();
+  try {
+    const { email, password, rol, nombre, apellido } = req.body;
+
+    // Verificar si el email ya está registrado
+    const existingUser = await Usuario.findOne({ email });
+
+    if (existingUser) {
+      req.flash('signupMessage', 'El correo ya está en uso.');
+      return res.redirect('/usuario/add'); // O redirigir a una página de error
+    }
+
+    // Crear nuevo usuario
+    const newUser = new Usuario({
+      email,
+      password: usuario.encryptPassword(password), // Asegúrate de que sea un método estático
+      rol,
+      nombre,
+      apellido,
+    });
+
+    // Guardar usuario
+    await newUser.insert();
+
+    console.log('Usuario agregado con éxito:', newUser);
+
+    return res.redirect('/usuarios'); // Ruta corregida con '/'
+  } catch (error) {
+    console.error('Error al agregar usuario:', error);
+    return res.status(500).send('Error en el servidor');
+  }
+});
+
+
+
 //ruta para mostrar el (SIGNIN)
 router.get('/signin', function(req, res, next) {
   res.render('signin');//renderizamos la pagina de signin
@@ -61,7 +98,7 @@ router.get('/usuarios', isAuthenticated, async (req, res, next) =>{
 router.get('/usuarios/delete/:id', isAuthenticated, async (req, res, next) =>{
   const usuario = new Usuario();
   let {id} = req.params;
-  await Usuario.delete(id);
+  await usuario.delete(id);
   res.redirect('/usuarios');
 });
 
