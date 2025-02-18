@@ -2,11 +2,12 @@ const router = require('express').Router();//importamos el modulo de express par
 const passport = require('passport');//importamos el modulo de passport para la autenticacion
 const Usuario = require('../models/usuario');
 
-
 //definimos la ruta de inicio
 router.get('/', (req, res, next) => {
   res.render('index');
 });
+
+
 
 
 //ruta para mostrar el (SIGNUP)
@@ -21,12 +22,10 @@ router.post('/signup', passport.authenticate('local-signup', {//utilizamos el pa
   failureFlash: true //Habilita mensajes flash para errores
 }));
 
-
 //ruta para mostrar el (SIGNIN)
 router.get('/signin', function(req, res, next) {
   res.render('signin');//renderizamos la pagina de signin
 });
-
 
 //ruta para procesar el formulario de (SIGNIN)
 router.post('/signin', passport.authenticate('local-signin', {//utilizamos el pasport para autenticar el signin
@@ -34,6 +33,9 @@ router.post('/signin', passport.authenticate('local-signin', {//utilizamos el pa
   failureRedirect: '/signin',//sino pa signin
   failureFlash: true //Habilita mensajes flash para errores
 }));
+
+
+
 
 
 //ruta para mostrar el perfil del admin
@@ -49,7 +51,6 @@ router.get('/logout', function(req, res, next) {
   });
 });
 
-
 //Ruta para ver usuarios
 router.get('/usuarios', isAuthenticated, async (req, res, next) =>{
   const usuario = new Usuario(); // Instancia correcta del modelo
@@ -57,13 +58,30 @@ router.get('/usuarios', isAuthenticated, async (req, res, next) =>{
   res.render('usuarios', { usuarios });
 });
 
+//Ruta  para mostrar el formulario de edicion de un usuario
+router.get('/usuarios/editUsuarios/:id', isAuthenticated, async function (req, res, next) {
+  var usuario = new Usuario();
+  usuario = await usuario.findById(req.params.id);
+  res.render('editUsuarios', { usuario });
+});
+
+//Ruta POST para actualizar un usuario
+router.post('/usuarios/editUsuarios/:id', isAuthenticated, async function(req, res, next) {
+  const usuario = new Usuario();
+  const { id } = req.params;
+  await usuario.update({_id : id}, req.body);
+  res.redirect('/usuarios');
+});
+
 //Ruta para eliminar un usuario por su id
 router.get('/usuarios/delete/:id', isAuthenticated, async (req, res, next) =>{
   const usuario = new Usuario();
   let {id} = req.params;
-  await Usuario.delete(id);
+  await usuario.delete(id);
   res.redirect('/usuarios');
 });
+
+
 
 
 //funcion para verificar si el usuario esta autenticado
