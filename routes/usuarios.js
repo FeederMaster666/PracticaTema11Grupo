@@ -51,16 +51,16 @@ router.get('/profile', isAuthenticated, function(req, res, next) {
 
 
 //para editar usuarios por id
-router.get('/usuarios/editUsuario/:id', isAuthenticated, async function (req, res, next) {
+router.get('/usuarios/editUsuarios/:id', isAuthenticated, async function (req, res, next) {
   var usuario = new Usuario();
-  usaurio = await usuario.findById(req.params.id);
-  res.render('edit', {usuario});
+  usuario = await usuario.findById(req.params.id);
+  res.render('editUsuarios', {usuario});
 });
 
-router.post('/usuarios/editUsuario/:id', isAuthenticated,async function(req, res, next) {
-  var usuario = new Usuario();
-  usuario.nombre = req.body.nombre;
-  await usuario.updateById(req.params.id);
+router.post('/usuarios/editUsuarios/:id', isAuthenticated,async function(req, res, next) {
+  const usuario = new Usuario();
+  const {id} = req.params;
+  await usuario.update({_id : id}, req.body);
   res.redirect('/usuarios');
 });
 
@@ -73,12 +73,6 @@ router.get('/usuarios/delete/:id', isAuthenticated, async function(req, res, nex
   res.redirect('/usuarios');
 });
 
-router.post('/usuarios/delete/:id', isAuthenticated, async function(req, res, next) { 
-  const usuario = new Usuario();
-  let {id} = req.params;
-  await usuario.delete(id);
-  res.redirect('/usuarios');
-});
 
 //ruta para cerrar sesion
 router.get('/logout', function(req, res, next) {

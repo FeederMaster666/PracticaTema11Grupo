@@ -51,7 +51,7 @@ usuarioSchema.methods.insertAsignatura = async function(){
 //metodo para eliminar un usuario
 usuarioSchema.methods.delete = async function(id){
   const Usuario = mongoose.model("usuario", usuarioSchema);
-    await this.deleteOne({_id:id})
+    await Usuario.deleteOne({_id:id})
     .then(result => console.log(result))
     .catch(error => console.log(error));
 };
