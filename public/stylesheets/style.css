@@ -1,7 +1,7 @@
 .container {
   display: grid;
   place-items: center; /* Centra el contenido tanto vertical como horizontal */
-  height: 100vh; 
+  height: 70vh; 
   width: 100%; 
 }
 
@@ -21,7 +21,7 @@
 }
 
 .card h1 {
-  margin-bottom: 15px;
+  margin-bottom: 30px;
   justify-content: center;
 }
 
