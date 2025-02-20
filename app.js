@@ -16,8 +16,8 @@ require('./passport/local-auth');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/usuarios');
-var taskRouter = require('./routes/tasks');
-// view engine setup
+var asignaturasRouter = require ('./routes/asignatura');
+  // view engine setup
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -50,7 +50,7 @@ app.use((req, res, next) => {
 //routes
 app.use('/', indexRouter);
 app.use('/', usersRouter);
-app.use('/', taskRouter);
+app.use('/', asignaturasRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -63,6 +63,10 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
+   //Info del error por consola
+   console.error(`Mensaje: ${err.message}`);
+   console.error(`Código de estado: ${err.status || 500}`);
+   console.error(`Ruta: ${req.originalUrl}`);
   // render the error page
   res.status(err.status || 500);
   res.render('error');

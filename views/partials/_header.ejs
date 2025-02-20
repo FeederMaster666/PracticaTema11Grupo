@@ -39,7 +39,7 @@
                                 <a class="nav-link" href="/profile">Perfil</span></a><!--Carga el apartado profile-->
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="/tasks">Asignaturas</a><!--Carga el apartado asignaturas (en views)-->
+                                <a class="nav-link" href="/asignaturas">Asignaturas</a><!--Carga el apartado asignaturas (en views)-->
                             </li>
 
                             <% if (user.rol=="administrador" ) { %><!--Si es un administrador-->
@@ -67,7 +67,7 @@
                         <% } %>
                     </ul>
                     <% if (user) { %><!--Se puede reciclar si fuese necesario-->
-                        <form action="/tasks/search" class="d-flex" method="get">
+                        <form action="/asignaturas/search" class="d-flex" method="get">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-light my-2 my-sm-0 mx-auto" type="submit">Buscar</button>
                         </form>
