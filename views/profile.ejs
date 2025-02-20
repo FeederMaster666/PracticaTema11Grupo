@@ -1,13 +1,13 @@
 <%- include('partials/_header.ejs') %>
 
-<div class="col-md-7 mx-auto">
+<div class="col-md-5 mx-auto">
     <% if (user.rol == 0) { %>
         <!-- Si el rol del usuario es 0, muestra el siguiente contenido -->
         <p>Contenido específico para el rol 0</p>
     <% } else { %>
         <!-- Si el rol del usuario no es 0, muestra la tabla con la información del usuario -->
         <table class="table table-bordered table-hover">
-            <thead>
+            <thead class="table-dark">
                 <tr>
                     <th class="mx-auto text-center" colspan="2">Usuario</th>
                 </tr>

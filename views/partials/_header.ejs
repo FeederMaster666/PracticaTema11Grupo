@@ -24,9 +24,9 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarScroll">
-                    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <ul class="navbar-nav  me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                         <% if (!user) { %> <!--Si no es un usuario registrado-->
-                            <li class="nav-item active">
+                            <li class="nav-item">
                                 <a class="nav-link" href="/signin">Signin</span></a><!--Carga el apartado signin (/views/signin)-->   
                             </li>
                             <li class="nav-item">
@@ -34,15 +34,15 @@
                             </li>
                             
                         <% } else { %><!--Si es un usuario registrado-->
-                            <li class="nav-item active">
+                            <li class="nav-item">
                                 <a class="nav-link" href="/profile">Perfil</span></a><!--Carga el apartado profile-->
                             </li>
-                            <li class="nav-item active">
+                            <li class="nav-item">
                                 <a class="nav-link" href="/asignaturas">Asignaturas</a><!--Carga el apartado asignaturas (en views)-->
                             </li>
 
                             <% if (user.rol=="administrador" ) { %><!--Si es un administrador-->
-                                <li class="nav-item active">
+                                <li class="nav-item">
                                     <a class="nav-link" href="/usuarios">Usuarios</a><!--Carga el apartado usuarios (en views)-->
                                 </li>
                                 

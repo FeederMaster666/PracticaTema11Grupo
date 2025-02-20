@@ -6,9 +6,10 @@
     <div class="row">
         <div class="col-md-5">
           <div class="card">
+            <h2 class="card-header text-center">Añadir Usuario</h2>
             <div class="card-body">
                 <!-- Formulario para añadir un usuario (reutilizamos el signup) -->
-                <h2>Añadir Usuario</h2>
+                
                 <form action="/signup" method="post">
                     <div class="form-group">
                         <label for="nombre">Nombre:</label>
@@ -43,7 +44,7 @@
             <!-- Listado de usuarios -->
             <h2>Listado de Usuarios</h2>
             <table class="table table-bordered table-hover">
-                <thead>
+                <thead class="table-dark">
                   <tr>
                     <th>N°</th>
                     <th>Nombre</th>
@@ -53,7 +54,7 @@
                     <th>Operaciones</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody class="table-group-divider">
                   <% for(var i=0; i < usuarios.length; i++) { %>
                     <tr>
                       <td><%= i + 1%></td>
