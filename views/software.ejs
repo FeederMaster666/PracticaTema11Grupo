@@ -1,0 +1,83 @@
+<%- include('partials/_header.ejs') %>
+
+    <!--Parte derecha: Formulario para añadir un usuario. Parte izquierda: Listado de usuarios-->
+
+    <div class="container">
+        <div class="row">
+            <% if (user.rol==="administrador" ) { %>
+                <!-- Formulario para añadir asignatura) -->
+                <div class="col-md-6">
+                    <h2>Añadir Asignatura</h2>
+                    <form action="/software/add" method="post">
+                        <!--en este controlador hay que pasarle todos los datos de usuarios.rol= alumno/profesor -->
+
+                        <div class="form-group">
+                            <label for="link">Link:</label>
+                            <input type="text" class="form-control" id="link" name="link" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="descripcion">Descripcion:</label>
+                            <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Añadir</button>
+                    </form>
+                </div>
+                <% } %>
+
+                    <!-- Listado de asignaturas -->
+                    <div class="col-md-6">
+                        <h2>Listado de software</h2>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Link</th>
+                                    <th>Descripcion</th>
+                                    <th>Operaciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for(var i=0; i < softwares.length; i++) { %>
+                                    <tr>
+                                        <td>
+                                            <%= i + 1%>
+                                        </td>
+                                        <td><strong>
+                                                <%= asignaturas[i].nombre %>
+                                            </strong></td>
+                                        <td>
+                                            <%= asignaturas[i].curso %>
+                                        </td>
+                            
+                                        <td>
+                                            <% if (estudios && asignaturas[i].estudio) { %>
+                                                <% estudios.forEach(estudio=> { %>
+                                                    <% if (estudio && estudio._id) { %>
+                                                        <% if
+                                                            (asignaturas[i].estudio.toString()===estudio._id.toString())
+                                                            { %>
+                                                            <%= estudio.nombre %> (<%= estudio.tipo %>)
+                                                                    <% } %>
+                                                                        <% } %>
+                                                                            <% }) %>
+                                                                                <% } %>
+                                        </td>
+                                        <td>
+                                            <a href="/asignaturas/delete/<%= asignaturas[i]._id %>"
+                                                class="btn btn-danger">
+                                                Eliminar
+                                            </a>
+                                            <a href="/asignaturas/edit/<%= asignaturas[i]._id %>" class="btn btn-info">
+                                                Editar
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+        </div>
+    </div>
+
+
+    <%- include('partials/_footer.ejs') %>
