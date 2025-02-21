@@ -58,6 +58,42 @@ router.get('/usuarios', isAuthenticated, async (req, res, next) =>{
   res.render('usuarios', { usuarios });
 });
 
+// Para añadir usuarios sin usar el signup
+router.post('/usuario/add', async (req, res) => {
+  const usuario= new Usuario();
+  try {
+    const { email, password, rol, nombre, apellido } = req.body;
+
+    // Verificar si el email ya está registrado
+    const existingUser = await Usuario.findOne({ email });
+
+    if (existingUser) {
+      req.flash('signupMessage', 'El correo ya está en uso.');
+      return res.redirect('/usuario/add'); // O redirigir a una página de error
+    }
+
+    // Crear nuevo usuario
+    const newUser = new Usuario({
+      email,
+      password: usuario.encryptPassword(password), // Asegúrate de que sea un método estático
+      rol,
+      nombre,
+      apellido,
+    });
+
+    // Guardar usuario
+    await newUser.insert();
+
+    console.log('Usuario agregado con éxito:', newUser);
+
+    return res.redirect('/usuarios'); // Ruta corregida con '/'
+  } catch (error) {
+    console.error('Error al agregar usuario:', error);
+    return res.status(500).send('Error en el servidor');
+  }
+});
+
+
 //Ruta  para mostrar el formulario de edicion de un usuario
 router.get('/usuarios/editUsuarios/:id', isAuthenticated, async function (req, res, next) {
   var usuario = new Usuario();

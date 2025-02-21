@@ -17,6 +17,7 @@ require('./passport/local-auth');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/usuarios');
 var asignaturasRouter = require('./routes/asignaturas');
+var softwareRouter = require('./routes/software');
 
 
 // view engine setup
@@ -53,6 +54,7 @@ app.use((req, res, next) => {
 app.use('/', indexRouter);
 app.use('/', usersRouter);
 app.use('/', asignaturasRouter);
+app.use('/', softwareRouter);
 
 
 // catch 404 and forward to error handler

@@ -16,7 +16,12 @@ const asignaturaSchema = new Schema ({
     [
         {type: mongoose.Schema.Types.ObjectId, ref:'usuario'}
     ],
-    estudio: {type: mongoose.Schema.Types.ObjectId, ref:'estudio'}
+    estudio: {type: mongoose.Schema.Types.ObjectId, ref:'estudio'},
+    softwares:
+    [
+      {type: mongoose.Schema.Types.ObjectId, ref:'software'}
+    ]
+
 });
 
 //NOTA: Comentar a Mario si también hay que añadir al esquema una lista de administradores
