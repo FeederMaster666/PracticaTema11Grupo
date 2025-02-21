@@ -5,23 +5,24 @@ const Software = require('../models/software');
 
 
 //Obtener software
-router.get('/software/:id', async (req, res) => {//V
+// Ruta para obtener todos los softwares de una asignatura específica
+router.get('/software/:id', async (req, res) => {
     const software = new Software();
-    let { id } = req.params;
-    var asignatura = new Asignatura();
-    asignatura = asignatura.findById(id)
-    const softwares = await software.findAllFromAsignatura(asignatura);
-    res.render('software', { softwares });
+    const softwares = await software.findAllFromAsignatura(req.params.id); // Usamos req.params.id en lugar de req.asignatura
+    console.log("Debería encontrar cosas de asignaturas: " + softwares);
+    const asignaturas = await Asignatura.find(); // Obtiene todas las asignaturas
+    
+    res.render('software', { softwares, asignaturas }); // Pasamos 'asignaturas' al renderizado para consistencia
 });
 
 // Para añadir software sin usar el signup
-router.post('/software/add/:id', async (req, res) => {
+router.post('/software/add', async (req, res) => {
     try {
         let asignatura = req.params.id;
         const { link, descripcion } = req.body;
 
         // Crear nuevo software
-        const newSoftware = new software({
+        const newSoftware = new Software({
             link,
             descripcion,
             asignatura
@@ -32,7 +33,7 @@ router.post('/software/add/:id', async (req, res) => {
 
         console.log('Contenido agregado con éxito:', newSoftware);
 
-        return res.redirect('/software/'+asignatura);
+        return res.redirect('/asignaturas');
     } catch (error) {
         console.error('Error al agregar contenido:', error);
         return res.status(500).send('Error en el servidor');

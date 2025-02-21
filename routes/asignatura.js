@@ -6,7 +6,7 @@ const Estudio = require('../models/estudio'); // Modelo de estudios
 
 //Obtener asignaturas
 router.get('/asignaturas',isAuthenticated, async (req, res) => {
-    const asignatura = new Asignatura();
+  const asignatura = new Asignatura();
   const asignaturas = await asignatura.findAllFromUsuario(req.user);
   console.log("Lo que encuentra enfindAllFromUsuario"+asignatura)
   const usuarios = await Usuario.find(); // Obtiene todos los usuarios

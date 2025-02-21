@@ -1,5 +1,6 @@
 //Librería Mongo y schema tipo Mongo
 const mongoose = require('mongoose');
+const software = require('./software');
 const {Schema} = mongoose
 
 //Schema de Asignatua
@@ -14,7 +15,7 @@ const asignaturaSchema = new Schema ({
     ],
     software:
     [
-      {type: mongoose.Schema.Types.ObjectId, ref: 'software'}
+      {type: mongoose.Schema.Types.ObjectId, ref:'software'}
     ],
     profesores: 
     [
