@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Asignatura = require('../models/asignatura'); 
+const Asignatura = require('../models/asignatura');
 const Usuario = require('../models/usuario'); // Modelo de usuarios
 const Estudio = require('../models/estudio'); // Modelo de estudios
 
@@ -44,7 +44,7 @@ router.post('/asignatura/add', async (req, res) => {
 router.get('/asignaturas/delete/:id', isAuthenticated, async (req, res, next) =>{
   const asignatura = new Asignatura();
   let {id} = req.params;
-  console.log("Intentando eliminar asignatura con ID:", id); //Trazas para pruebas 
+  console.log("Intentando eliminar asignatura con ID:", id); //Trazas para pruebas
   await asignatura.delete(id);
   res.redirect('/asignaturas');
 });

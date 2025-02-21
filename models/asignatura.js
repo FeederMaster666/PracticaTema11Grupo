@@ -12,6 +12,10 @@ const asignaturaSchema = new Schema ({
     [
         {type: mongoose.Schema.Types.ObjectId, ref:'usuario'}
     ],
+    software:
+    [
+      {type: mongoose.Schema.Types.ObjectId, ref: 'software'}
+    ],
     profesores: 
     [
         {type: mongoose.Schema.Types.ObjectId, ref:'usuario'}
