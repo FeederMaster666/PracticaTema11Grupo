@@ -50,19 +50,10 @@
                                         </td>
                             
                                         <td>
-                                            <% if (estudios && asignaturas[i].estudio) { %>
-                                                <% estudios.forEach(estudio=> { %>
-                                                    <% if (estudio && estudio._id) { %>
-                                                        <% if
-                                                            (asignaturas[i].estudio.toString()===estudio._id.toString())
-                                                            { %>
-                                                            <%= estudio.nombre %> (<%= estudio.tipo %>)
-                                                                    <% } %>
-                                                                        <% } %>
-                                                                            <% }) %>
-                                                                                <% } %>
+                                            
                                         </td>
                                         <td>
+                                            <% if (user.rol=="administrador" || user.rol == "profesor") { %>
                                             <a href="/asignaturas/delete/<%= asignaturas[i]._id %>"
                                                 class="btn btn-danger">
                                                 Eliminar
@@ -70,6 +61,7 @@
                                             <a href="/asignaturas/edit/<%= asignaturas[i]._id %>" class="btn btn-info">
                                                 Editar
                                             </a>
+                                            <%}%>
                                         </td>
                                     </tr>
                                     <% } %>
