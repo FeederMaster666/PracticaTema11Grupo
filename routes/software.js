@@ -46,3 +46,5 @@ router.get('/software/delete/:id', isAuthenticated, async (req, res, next) => {
     await software.delete(id);
     res.redirect('/software');
 });
+
+module.exports = router;

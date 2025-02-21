@@ -17,23 +17,23 @@ SoftwareSchema.methods.insert = async function () {
 
 // Método para eliminar un documento por su ID
 SoftwareSchema.methods.delete = async function (id) {
-    const Task = mongoose.model("software", SoftwareSchema); // Se obtiene el modelo 'software'
-    await Task.deleteOne({ _id: id }) // Se elimina el documento con el ID proporcionado
+    const Software = mongoose.model("software", SoftwareSchema); // Se obtiene el modelo 'software'
+    await Software.deleteOne({ _id: id }) // Se elimina el documento con el ID proporcionado
         .then(result => console.log(result)) // Muestra el resultado de la operación
         .catch(error => console.log(error)); // Manejo de errores en caso de fallo
 };
 
 // Método para actualizar un documento por su ID
 SoftwareSchema.methods.update = async (id, software) => {
-    const Task = mongoose.model("software", SoftwareSchema); // Se obtiene el modelo 'software'
-    await Task.updateOne({ _id: id }, software) // Se actualiza el documento con el ID proporcionado
+    const Software = mongoose.model("software", SoftwareSchema); // Se obtiene el modelo 'software'
+    await Software.updateOne({ _id: id }, software) // Se actualiza el documento con el ID proporcionado
         .then(result => console.log(result)) // Muestra el resultado de la actualización
         .catch(error => console.log(error)); // Manejo de errores en caso de fallo
 };
 
 //Encontrar todas las asignaturas de un usuario
 SoftwareSchema.methods.findAllFromAsignatura = async function (asignatura) {
-    const Task = mongoose.model("software", SoftwareSchema); // Se obtiene el modelo 'software'
+    const Software = mongoose.model("software", SoftwareSchema); // Se obtiene el modelo 'software'
 
     return await Task.find({asignatura : asignatura})
         .then(result => { return result })
