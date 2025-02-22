@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+
 // Definición del esquema de software
 const SoftwareSchema = new Schema({
     link: { type: String, required: true }, // Definimos el campo 'link' como obligatorio en el esquema

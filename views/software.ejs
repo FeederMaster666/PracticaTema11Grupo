@@ -1,12 +1,14 @@
 <%- include('partials/_header.ejs') %>
 
 <div class="container">
+    <h2>Asignatura: <%= asignatura.nombre%></h2> 
     <div class="row">
         <% if (user.rol === "administrador") { %>
             <!-- Formulario para añadir software -->
             <div class="col-md-6">
                 <h2>Añadir Software</h2>
                 <form action="/software/add " method="post">
+                    <input type="hidden" name="asignaturaId" value="<%= asignatura._id %>"> <!--Le pasamos el id de la asigntura en el body. Lo dejamos en 'hidden' (oculto)-->
                     <div class="form-group">
                         <label for="link">Link:</label>
                         <input type="text" class="form-control" id="link" name="link" required>
