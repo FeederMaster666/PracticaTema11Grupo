@@ -28,10 +28,10 @@
                     <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                         <% if (!user) { %> <!--Si no es un usuario registrado-->
                             <li class="nav-item active">
-                                <a class="nav-link" href="/signin">Signin</span></a><!--Carga el apartado signin (/views/signin)-->   
+                                <a class="nav-link" href="/signin">Inicio sesión</span></a><!--Carga el apartado signin (/views/signin)-->   
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/signup">Signup</a><!--Carga el apartado signup (/views/signup)-->      
+                                <a class="nav-link" href="/signup">Regístrate</a><!--Carga el apartado signup (/views/signup)-->      
                             </li>
                             
                         <% } else { %><!--Si es un usuario registrado-->
@@ -62,7 +62,7 @@
                                 </div>
                             </li>-->
                             <li class="nav-item">
-                                <a class="nav-link" href="/logout">Log out</a>
+                                <a class="nav-link" href="/logout">Cerrar sesión</a>
                             </li>
                         <% } %>
                     </ul>

@@ -32,13 +32,21 @@ SoftwareSchema.methods.update = async (id, software) => {
         .catch(error => console.log(error)); // Manejo de errores en caso de fallo
 };
 
-//Encontrar todas las asignaturas de un usuario
+//Encontrar todo el software de una asignatura
 SoftwareSchema.methods.findAllFromAsignatura = async function (asignatura) {
     const Software = mongoose.model("software", SoftwareSchema); // Se obtiene el modelo 'software'
 
     return await Software.find({asignatura : asignatura})
         .then(result => { return result })
         .catch(error => console.log(error));
+};
+
+//Encontrar software por id
+SoftwareSchema.methods.findById= async function(id){
+    const Software = mongoose.model("software", SoftwareSchema);
+    return await Software.findById(id)
+    .then(result => {return result})
+    .catch(error => console.log(error));
 };
 
 

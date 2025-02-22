@@ -67,6 +67,41 @@ router.get('/software/delete/:id', async (req, res, next) => {
     }
 });
 
+//Ruta para mostrar el formulario de edicion de software
+router.get('/software/edit/:id', async function (req, res, next) {
+    var software = new Software();
+    software = await software.findById(req.params.id);
+    res.render('editSoftware', {software});
+});
+
+//Ruta para modificar datos del software. Redirige a /Software/idAsignatura
+router.post('/software/edit/:id', async function (req, res, next) {
+    const { id } = req.params;
+    
+    try {
+        // Buscar el software por ID para obtener el asignaturaId antes de la actualización
+        const software = await Software.findById(id);
+        
+        if (!software) {
+            return res.status(404).send("Software no encontrado");
+        }
+        
+        // Obtener el ID de la asignatura del software antes de la actualización
+        const asignaturaId = software.asignatura;
+
+        console.log("Intentando editar software con id ", id);
+
+        // Actualizar el software con los datos proporcionados en req.body
+        await Software.updateOne({ _id: id }, req.body);
+
+        // Redirigir a la vista de la asignatura correspondiente
+        res.redirect('/software/' + asignaturaId);
+    } catch (error) {
+        console.error("Error al editar software: ", error);
+        next(error);
+    }
+});
+
 
 
 module.exports = router;
