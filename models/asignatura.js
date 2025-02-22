@@ -1,5 +1,6 @@
 //Librería Mongo y schema tipo Mongo
 const mongoose = require('mongoose');
+const software = require('./software');
 const {Schema} = mongoose
 
 //Schema de Asignatua
@@ -12,16 +13,15 @@ const asignaturaSchema = new Schema ({
     [
         {type: mongoose.Schema.Types.ObjectId, ref:'usuario'}
     ],
+    software:
+    [
+      {type: mongoose.Schema.Types.ObjectId, ref:'software'}
+    ],
     profesores: 
     [
         {type: mongoose.Schema.Types.ObjectId, ref:'usuario'}
     ],
     estudio: {type: mongoose.Schema.Types.ObjectId, ref:'estudio'},
-    softwares:
-    [
-      {type: mongoose.Schema.Types.ObjectId, ref:'software'}
-    ]
-
 });
 
 //NOTA: Comentar a Mario si también hay que añadir al esquema una lista de administradores

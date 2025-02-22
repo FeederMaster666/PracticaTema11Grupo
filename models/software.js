@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+
 // Definición del esquema de software
 const SoftwareSchema = new Schema({
     link: { type: String, required: true }, // Definimos el campo 'link' como obligatorio en el esquema
@@ -31,17 +32,13 @@ SoftwareSchema.methods.update = async (id, software) => {
         .catch(error => console.log(error)); // Manejo de errores en caso de fallo
 };
 
-//Encontrar todas los software de un asignatura
+//Encontrar todas las asignaturas de un usuario
 SoftwareSchema.methods.findAllFromAsignatura = async function (asignatura) {
-    const Software = mongoose.model("software", SoftwareSchema);  // Obtén el modelo 'software'
+    const Software = mongoose.model("software", SoftwareSchema); // Se obtiene el modelo 'software'
 
-    console.log("asignatura: ", asignatura)
-
-    const asig = await asignatura;
-
-    return await Software.find({ asignatura: asig })
-    .then(result => console.log(result)) 
-    .catch(error => console.log(error)); 
+    return await Software.find({asignatura : asignatura})
+        .then(result => { return result })
+        .catch(error => console.log(error));
 };
 
 
