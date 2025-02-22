@@ -35,7 +35,7 @@ router.post('/software/add', async (req, res) => {
 
         console.log('Contenido agregado con éxito:', newSoftware);
 
-        return res.redirect('/asignaturas');
+        return res.redirect('/software/' + asignaturaId);
     } catch (error) {
         console.error('Error al agregar contenido:', error);
         return res.status(500).send('Error en el servidor');
@@ -44,11 +44,29 @@ router.post('/software/add', async (req, res) => {
 
 //Ruta para eliminar un software por su id
 router.get('/software/delete/:id', async (req, res, next) => {
-    const software = new Software();
-    let { id } = req.params;
-    await software.delete(id);
-    res.redirect('/software');
+    try {
+        //Capturamos en una variable la id pasada por ruta
+        let { id } = req.params;
+
+        // Buscar el software en la BD  para obtener el ID de la asignatura
+        const software = await Software.findById(id);
+        if (!software) {
+            return res.status(404).send('Software no encontrado');
+        }
+
+        let asignaturaId = software.asignatura; // Obtener el ID de la asignatura antes de eliminar
+
+        // Eliminar el software
+        await Software.findByIdAndDelete(id);
+
+        // Redirigir a la vista de software de esa asignatura
+        res.redirect('/software/' + asignaturaId);
+    } catch (error) {
+        console.error('Error al eliminar software:', error);
+        res.status(500).send('Error en el servidor');
+    }
 });
+
 
 
 module.exports = router;
