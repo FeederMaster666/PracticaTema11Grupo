@@ -51,5 +51,21 @@ router.get('/software/delete/:id', async (req, res, next) => {
     res.redirect('/asignaturas'); 
 });
 
+//Ruta para mostrar el formulario de edicion de software
+router.get('/software/edit/:id', async function (req, res, next) {
+    var software = new Software();
+    software = await software.findById(req.params.id);
+    res.render('editSoftware', {software});
+});
+
+//Ruta POST para actualizar un software
+router.post('/software/edit/:id', async function (req, res, next) {
+    const software = new Software();
+    const { id } = req.params;
+    console.log("Intentando editar software con id ", id);
+    await software.update({_id : id}, req.body);
+    res.redirect('/asignaturas');
+})
+
 
 module.exports = router;

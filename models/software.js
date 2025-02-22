@@ -41,5 +41,13 @@ SoftwareSchema.methods.findAllFromAsignatura = async function (asignatura) {
         .catch(error => console.log(error));
 };
 
+//Encontrar software por id
+SoftwareSchema.methods.findById= async function(id){
+    const Software = mongoose.model("software", SoftwareSchema);
+    return await Software.findById(id)
+    .then(result => {return result})
+    .catch(error => console.log(error));
+};
+
 
 module.exports = mongoose.model('software', SoftwareSchema); // Exporta el modelo 'software'
