@@ -8,7 +8,7 @@ const Estudio = require('../models/estudio'); // Modelo de estudios
 router.get('/asignaturas',isAuthenticated, async (req, res) => {
     const asignatura = new Asignatura();
   const asignaturas = await asignatura.findAllFromUsuario(req.user);
-  console.log("Lo que encuentra enfindAllFromUsuario"+asignatura)
+  console.log("Lo que encuentra enfindAllFromUsuario"+asignatura) //traza de pruebas
   const usuarios = await Usuario.find(); // Obtiene todos los usuarios
   // Filtrar profesores y alumnos
   const profesores = usuarios.filter(user => user.rol === 'profesor');
