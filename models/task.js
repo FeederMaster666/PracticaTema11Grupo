@@ -16,7 +16,7 @@ const TaskSchema = Schema({
     default: false
   },
   usuario: [
-    {type: mongoose.Schema.Types.ObjectId, ref:'usuario'}
+    {type: mongoose.Schema.Types.ObjectId, ref:'user'}
 ]
 });
 

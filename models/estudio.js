@@ -15,18 +15,25 @@ estudioSchema.methods.insert = async function () {
     .then(result => console.log(result))  // Guarda el estudio y muestra el resultado
     .catch(error => console.log(error));  //Se maneja el error
 };
-
 //Método para obtener un estudio por su id
 estudioSchema.methods.findById = async function (id) {
-    const estudio = mongoose.model("estudio", estudioSchema); 
+    estudio = mongoose.model("estudio", estudioSchema); 
     return await estudio.findById(id)
+    .then(result => { return result })  // Devuelve el estudio encontrado
+    .catch(error => console.log(error));  //Se maneja el error
+};
+
+//Método para obtener todos los estudios
+estudioSchema.methods.findAll = async function (id) {
+    estudio = mongoose.model("estudio", estudioSchema); 
+    return await estudio.find()
     .then(result => { return result })  // Devuelve el estudio encontrado
     .catch(error => console.log(error));  //Se maneja el error
 };
 
 //Método para actualizar un estudio por su id
 estudioSchema.methods.update = async (id, estudio) => {
-    const estudio = mongoose.model("estudio", estudioSchema); 
+    estudio = mongoose.model("estudio", estudioSchema); 
     await estudio.updateOne({_id: id}, estudio) //actualiza el estudio
     .then(result => console.log(result))  // Muestra el resultado
     .catch(error => console.log(error));  //Se maneja el error
@@ -34,7 +41,7 @@ estudioSchema.methods.update = async (id, estudio) => {
 
 //Método para eliminar un estudio por su id
 estudioSchema.methods.delete = async function (id) {
-    const estudio = mongoose.model("estudio", estudioSchema); 
+    estudio = mongoose.model("estudio", estudioSchema); 
     await estudio.deleteOne({_id: id}) //Elimina el estudio
     .then(result => console.log(result))  // Muestra el resultado
     .catch(error => console.log(error));  //Se maneja el error
@@ -43,4 +50,4 @@ estudioSchema.methods.delete = async function (id) {
 
 
 // Exportar el modelo de estudio
-module.exports = mongoose.model('estudios', usuarioSchema);
+module.exports = mongoose.model('estudio',estudioSchema);

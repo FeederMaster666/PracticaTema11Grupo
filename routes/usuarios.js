@@ -1,23 +1,19 @@
-const express = require('express');
 const router = require('express').Router();//importamos el modulo de express para definir las rutas
 const passport = require('passport');//importamos el modulo de passport para la autenticacion
+const Usuario = require('../models/usuario');//importamos el modelo de usuario
+
 
 //definimos la ruta de inicio
-router.get('/', function(req, res, next) {
-  res.send('index');
+router.get('/', (req, res, next) => {
+  res.render('index');
 });
 
-
-//DESDE LAS VISTAS, SE LLAMAN A ESTOS METODOS (GET,POST) QUE RENDERIZAN NUEVAS VISTAS EN LA PÁGINA WEB
-//Parámetros de los get,post,etc -> req:solicitud del cliente, res:respuesta del servidor, next: para pasar el control a otro middleware
-
 //ruta para la pagina de usuarios
-router.get('/usuarios', function(req, res, next) {
-  if (req.usuario && req.usuario.rol == 0) { // Verifica que req.usuario exista antes de acceder a rol
-    res.render('usuarios'); // Renderiza la vista de usuarios
-  } else {
-    res.redirect('/'); // Redirige al usuario si no tiene el rol adecuado
-  }
+router.get('/usuarios',isAuthenticated, async function(req, res, next) {
+  const usuario = new Usuario();
+  const usuarios = await usuario.findAll();
+  res.render('usuarios', {usuarios});
+
 });
 
 //ruta para mostrar el (SIGNUP)
@@ -52,12 +48,69 @@ router.get('/profile', isAuthenticated, function(req, res, next) {
   res.render('profile');//renderizamos la pagina de profile
 });
 
+// Para añadir usuarios sin usar el signup
+router.post('/usuario/add', async (req, res) => {
+  const usuario= new Usuario();
+  try {
+    const { email, password, rol, nombre, apellido } = req.body;
+
+    // Verificar si el email ya está registrado
+    const existingUser = await Usuario.findOne({ email });
+
+    if (existingUser) {
+      req.flash('signupMessage', 'El correo ya está en uso.');
+      return res.redirect('/usuario/add'); // O redirigir a una página de error
+    }
+
+    // Crear nuevo usuario
+    const newUser = new Usuario({
+      email,
+      password: usuario.encryptPassword(password), // Asegúrate de que sea un método estático
+      rol,
+      nombre,
+      apellido,
+    });
+
+    // Guardar usuario
+    await newUser.insert();
+
+    console.log('Usuario agregado con éxito:', newUser);
+
+    return res.redirect('/usuarios'); // Ruta corregida con '/'
+  } catch (error) {
+    console.error('Error al agregar usuario:', error);
+    return res.status(500).send('Error en el servidor');
+  }
+});
+
+//para editar usuarios por id
+router.get('/usuarios/editUsuarios/:id', isAuthenticated, async function (req, res, next) {
+  var usuario = new Usuario();
+  usuario = await usuario.findById(req.params.id);
+  res.render('editUsuarios', {usuario});
+});
+
+router.post('/usuarios/editUsuarios/:id', isAuthenticated,async function(req, res, next) {
+  const usuario = new Usuario();
+  const {id} = req.params;
+  await usuario.update({_id : id}, req.body);
+  res.redirect('/usuarios');
+});
+
+
+//para eliminar usuarios por id
+router.get('/usuarios/delete/:id', isAuthenticated, async function(req, res, next) {
+  const usuario = new Usuario();
+  let {id} = req.params;
+  await usuario.delete(id);
+  res.redirect('/usuarios');
+});
+
+
 //ruta para cerrar sesion
 router.get('/logout', function(req, res, next) {
   req.logout(function(err){
-    if(err){
-      return next(err);
-    }
+    if (err) { return next(err); }
     res.redirect('/');
   });
 });

@@ -4,30 +4,25 @@ const bcrypt = require('bcrypt-nodejs');
 const {Schema} = mongoose;
 
 const usuarioSchema = new Schema({
-    nombre: {type: String, required: true},
+    nombre: {type: String, required: false},
     email: {type: String, required: true},
     password: {type: String, required: true},
-    apellido: {type: String, required: true},
+    apellido: {type: String, required: false},
     rol: {
-        type: [String],
-        enum: ['profesor', 'alumno', 'administrador'],
-        required: true
-    },
+        type: String, required: true
+    }
     
 });
 
-// asignar un numero al rol (esto hay q verlo mejor)
-const roleIds = {
-    profesor: 1,
-    alumno: 2,
-    administrador: 0
-};
 
-//metodo para obtener el id del rol(con esto que tambien hay qye verlo)
-usuarioSchema.methods.getRoleId = function() {
-    return this.rol.map(role => roleIds[role]);
+//metodo para validar contraseña
+usuarioSchema.methods.encryptPassword = async password => {
+    return bcrypt.hashSync(password,bcrypt.genSaltSync (10));
 };
-
+//metodo para comparar contraseñas
+usuarioSchema.methods.comparePassword = function(password){
+    return bcrypt.compareSync(password, this.password);
+};
 //metodo para volver a encriptar la contraseña
 usuarioSchema.methods.encryptPassword = (password) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
@@ -42,7 +37,7 @@ usuarioSchema.methods.comparePassword = function(password){
 //metodo para insertar un usuario
 usuarioSchema.methods.insert = async function(){
    await this.save()
-    .then(result => console.log(result))
+    .then(result => {return result})
     .catch(error => console.log(error));
 };
 
@@ -56,7 +51,7 @@ usuarioSchema.methods.insertAsignatura = async function(){
 //metodo para eliminar un usuario
 usuarioSchema.methods.delete = async function(id){
   const Usuario = mongoose.model("usuario", usuarioSchema);
-    await this.deleteOne({_id:id})
+    await Usuario.deleteOne({_id:id})
     .then(result => console.log(result))
     .catch(error => console.log(error));
 };
@@ -80,22 +75,24 @@ usuarioSchema.methods.update = async function(id, usuario){
 usuarioSchema.methods.findByEmail = async function(email){
     const Usuario = mongoose.model("usuario", usuarioSchema);
     return await Usuario.findOne({"email": email})
-    .then(result => console.log(result))
+    .then(result => {return result})
     .catch(error => console.log(error));
 }
     
-//metodo para asignar alumnos a una asignatura
-usuarioSchema.methods.asignarAlumnos = async function(){
-   
-};
+//findbyid
+usuarioSchema.methods.findById = async function(id){
+    const Usuario = mongoose.model("usuario", usuarioSchema);
+    return await Usuario.findById(id)
+    .then(result => {return result})
+    .catch(error => console.log(error));
+}
 
-//metodo para asignar profesores a una asignatura
-usuarioSchema.methods.asignarProfesores = async function(){
-   
-};
-/****ESTOS METODOS LOS DEL PROFESOR  *****/
+//findall
+usuarioSchema.methods.findAll = async function(){
+    return await mongoose.model("usuario", usuarioSchema)
+    .find({});
+}
 
-/****ESTOS METODOS LOS DEL ALUMNO  *****/
 
 
 
