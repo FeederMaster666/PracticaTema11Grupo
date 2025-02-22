@@ -11,7 +11,7 @@
                     <input type="hidden" name="asignaturaId" value="<%= asignatura._id %>">
                     <div class="form-group">
                         <label for="link">Link:</label>
-                        <input type="text" class="form-control" id="link" name="link" required>
+                        <input type="link" class="form-control" id="link" name="link" required>
                     </div>
                     <div class="form-group">
                         <label for="descripcion">Descripcion:</label>
@@ -32,7 +32,9 @@
                         <th>Nº</th>
                         <th>Link</th>
                         <th>Descripcion</th>
+                        <% if (user.rol == "administrador" || user.rol == "profesor") { %> 
                         <th>Operaciones</th>
+                        <% } %>
                     </tr>
                 </thead>
                 <tbody>

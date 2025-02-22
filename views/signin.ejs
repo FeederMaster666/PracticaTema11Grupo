@@ -1,5 +1,6 @@
 <%- include('partials/_header.ejs') %>
 <div class="col-md-5">
+  <h2>Inicio de sesión</h2>
   <div class="card">
     <div class="card-body">
       <form action="/signin" method="POST">
@@ -15,4 +16,4 @@
 <%if (signinMessage) {%>
   <p style="color:#FF0000;"><%= signinMessage %></p>
   <% } %>
-<%- include('partials/_footer.ejs') %>
+  <%- include('partials/_footer.ejs') %>

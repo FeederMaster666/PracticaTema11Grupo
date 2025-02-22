@@ -57,7 +57,7 @@
                     <% }) %>
                 </select>
               </div>
-
+              <br>
               <button type="submit" class="btn btn-primary">Añadir</button>
             </form>
           </div>
@@ -75,7 +75,10 @@
                 <th>Profesores</th>
                 <th>Alumnos</th>
                 <th>Estudio</th>
+                <!--Añadir condicional si es admin o profe-->
+                <% if(user.rol === "administrador" || user.rol === "profesor") { %>
                 <th>Operaciones</th>
+                <% } %>
               </tr>
             </thead>
             <tbody>
@@ -135,14 +138,13 @@
                       <% }) %>
                     <% } %>
                   </td>
+                  <!--Añadir condicional si es admin o profe-->
+                  <% if(user.rol === "administrador" || user.rol === "profesor") { %>
                   <td>
-                    <a href="/asignaturas/delete/<%= asignaturas[i]._id %>" class="btn btn-danger">
-                      Eliminar
-                    </a>
-                    <a href="/asignaturas/editAsignatura/<%= asignaturas[i]._id %>" class="btn btn-info">
-                      Editar
-                    </a>
+                    <a href="/asignaturas/delete/<%= asignaturas[i]._id %>" class="btn btn-danger"> Eliminar</a> 
+                    <a href="/asignaturas/editAsignatura/<%= asignaturas[i]._id %>" class="btn btn-info"> Editar</a>     
                   </td>
+                 <% } %>
                 </tr>
                 <% } %>
             </tbody>
